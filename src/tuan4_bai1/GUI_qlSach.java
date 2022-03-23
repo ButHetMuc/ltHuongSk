@@ -41,7 +41,7 @@ public class GUI_qlSach extends JFrame {
 
 	public GUI_qlSach() {
 		super("quan li sach");
-		setSize(800,500);
+		setSize(900,500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

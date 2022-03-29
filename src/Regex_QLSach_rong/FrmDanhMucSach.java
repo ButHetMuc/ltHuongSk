@@ -72,14 +72,14 @@ public class FrmDanhMucSach extends JFrame implements ActionListener {
 		pnlNorth.add(lblDonGia = new JLabel("Ä�Æ¡n giÃ¡: "));
 		pnlNorth.add(lblISBN = new JLabel("International Standard Book Number: "));
 
-		pnlNorth.add(txtMaSach = new JTextField());
-		pnlNorth.add(txtTuaSach = new JTextField());
-		pnlNorth.add(txtTacGia = new JTextField());
-		pnlNorth.add(txtNamXB = new JTextField());
-		pnlNorth.add(txtNhaXB = new JTextField());
-		pnlNorth.add(txtSoTrang = new JTextField());
-		pnlNorth.add(txtDonGia = new JTextField());
-		pnlNorth.add(txtISBN = new JTextField());
+//		pnlNorth.add(txtMaSach = new JTextField());
+//		pnlNorth.add(txtTuaSach = new JTextField());
+//		pnlNorth.add(txtTacGia = new JTextField());
+//		pnlNorth.add(txtNamXB = new JTextField());
+//		pnlNorth.add(txtNhaXB = new JTextField());
+//		pnlNorth.add(txtSoTrang = new JTextField());
+//		pnlNorth.add(txtDonGia = new JTextField());
+//		pnlNorth.add(txtISBN = new JTextField());
 
 		pnlNorth.add(txtMess = new JTextField());
 		txtMess.setEditable(false);
@@ -109,7 +109,7 @@ public class FrmDanhMucSach extends JFrame implements ActionListener {
 		lblISBN.setBounds(20, 120, 220, h);
 		txtISBN.setBounds(240, 120, 180, h);
 		txtMess.setBounds(20, 145, 550, 20);
-
+		
 		// Pháº§n Center
 		JPanel pnlCenter;
 		add(pnlCenter = new JPanel(), BorderLayout.CENTER);

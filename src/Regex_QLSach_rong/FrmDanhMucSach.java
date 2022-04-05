@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 
@@ -63,23 +64,23 @@ public class FrmDanhMucSach extends JFrame implements ActionListener {
 		pnlNorth.setLayout(null); // Absolute layout
 
 		JLabel lblMaSach, lblTuaSach, lblTacGia, lblNamXB, lblNhaXB, lblSoTrang, lblDonGia, lblISBN;
-		pnlNorth.add(lblMaSach = new JLabel("MÃ£ sÃ¡ch: "));
-		pnlNorth.add(lblTuaSach = new JLabel("Tá»±a sÃ¡ch: "));
-		pnlNorth.add(lblTacGia = new JLabel("TÃ¡c giáº£: "));
-		pnlNorth.add(lblNamXB = new JLabel("NÄƒm xuáº¥t báº£n: "));
-		pnlNorth.add(lblNhaXB = new JLabel("NhÃ  xuáº¥t báº£n: "));
-		pnlNorth.add(lblSoTrang = new JLabel("Sá»‘ trang: "));
-		pnlNorth.add(lblDonGia = new JLabel("Ä�Æ¡n giÃ¡: "));
+		pnlNorth.add(lblMaSach = new JLabel("Ma sach: "));
+		pnlNorth.add(lblTuaSach = new JLabel("Tua sach: "));
+		pnlNorth.add(lblTacGia = new JLabel("Tac gia: "));
+		pnlNorth.add(lblNamXB = new JLabel("Nam xuat ban: "));
+		pnlNorth.add(lblNhaXB = new JLabel("Nha xuat ban: "));
+		pnlNorth.add(lblSoTrang = new JLabel("So trang: "));
+		pnlNorth.add(lblDonGia = new JLabel("Don gia: "));
 		pnlNorth.add(lblISBN = new JLabel("International Standard Book Number: "));
 
-//		pnlNorth.add(txtMaSach = new JTextField());
-//		pnlNorth.add(txtTuaSach = new JTextField());
-//		pnlNorth.add(txtTacGia = new JTextField());
-//		pnlNorth.add(txtNamXB = new JTextField());
-//		pnlNorth.add(txtNhaXB = new JTextField());
-//		pnlNorth.add(txtSoTrang = new JTextField());
-//		pnlNorth.add(txtDonGia = new JTextField());
-//		pnlNorth.add(txtISBN = new JTextField());
+		pnlNorth.add(txtMaSach = new JTextField());
+		pnlNorth.add(txtTuaSach = new JTextField());
+		pnlNorth.add(txtTacGia = new JTextField());
+		pnlNorth.add(txtNamXB = new JTextField());
+		pnlNorth.add(txtNhaXB = new JTextField());
+		pnlNorth.add(txtSoTrang = new JTextField());
+		pnlNorth.add(txtDonGia = new JTextField());
+		pnlNorth.add(txtISBN = new JTextField());
 
 		pnlNorth.add(txtMess = new JTextField());
 		txtMess.setEditable(false);
@@ -113,15 +114,15 @@ public class FrmDanhMucSach extends JFrame implements ActionListener {
 		// Pháº§n Center
 		JPanel pnlCenter;
 		add(pnlCenter = new JPanel(), BorderLayout.CENTER);
-		pnlCenter.add(btnThem = new JButton("ThÃªm"));
-		pnlCenter.add(btnXoaRong = new JButton("XÃ³a rá»—ng"));
-		pnlCenter.add(btnXoa = new JButton("XÃ³a"));
-		pnlCenter.add(btnSua = new JButton("Sá»­a"));
-		pnlCenter.add(btnLuu = new JButton("LÆ°u"));
-		pnlCenter.add(new JLabel("TÃ¬m theo mÃ£ sÃ¡ch: "));
+		pnlCenter.add(btnThem = new JButton("Them"));
+		pnlCenter.add(btnXoaRong = new JButton("Lam moi"));
+		pnlCenter.add(btnXoa = new JButton("Xoa"));
+		pnlCenter.add(btnSua = new JButton("Sua"));
+		pnlCenter.add(btnLuu = new JButton("Luu"));
+		pnlCenter.add(new JLabel("Tim theo ma sach: "));
 		pnlCenter.add(cboMaSach = new JComboBox<String>());
 		cboMaSach.setPreferredSize(new Dimension(100, 25));
-		pnlCenter.add(btnLoc = new JButton("Lá»�c theo tá»±a sÃ¡ch"));
+		pnlCenter.add(btnLoc = new JButton("Loc theo tua sach"));
 
 		// Pháº§n South
 		JScrollPane scroll;
@@ -130,7 +131,7 @@ public class FrmDanhMucSach extends JFrame implements ActionListener {
 		// tableModel = new DefaultTableModel(headers, 0);
 		add(scroll = new JScrollPane(table = new JTable(tableModel), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.SOUTH);
-		scroll.setBorder(BorderFactory.createTitledBorder("Danh sÃ¡ch cÃ¡c cuá»‘n sÃ¡ch"));
+		scroll.setBorder(BorderFactory.createTitledBorder("Danh sach sach"));
 		table.setRowHeight(20);
 		scroll.setPreferredSize(new Dimension(0, 350));
 
@@ -164,19 +165,66 @@ public class FrmDanhMucSach extends JFrame implements ActionListener {
 		String soTr = txtSoTrang.getText().trim();
 		String donG = txtDonGia.getText().trim();
 		String isbn = txtISBN.getText().trim();
-		
-		if(maS.equals("") /*&& maS.matches("[a-zA-Z]\\d{3}")*/) {
+		char ktdau = tuaS.charAt(0);
+		if(maS.equals("") || !maS.matches("^"+ktdau+"\\d{3}")) {
 			JOptionPane.showMessageDialog(null, "ma sach phai bat dau bang 1 ki tu, sau do la 3 chu so");
+			txtMaSach.selectAll();
+			txtMaSach.requestFocus();
 			return false;
 		}
-		if(tuaS.equals("") && maS.matches("[a-zA-Z' ]{1,}")) {
+		if(tuaS.equals("") || !tuaS.matches("[a-zA-Z' ]+")) {
 			JOptionPane.showMessageDialog(null, "tua sach khong duoc co so, ki tu dac biet");
+			txtTuaSach.selectAll();
+			txtTuaSach.requestFocus();
 			return false;
 		}
-		if(tacG.equals("") && maS.matches("[a-zA-Z' ]{1,}")) {
+		if(tacG.equals("") || !tacG.matches("[a-zA-Z' ]{1,}")) {
 			JOptionPane.showMessageDialog(null, "ten tac gia khong co so, ki tu dac biet");
 			return false;
 		}
+		if(isbn.equals("")|| !isbn.matches("(\\d+)(-\\d+){3,4}")) {
+			JOptionPane.showMessageDialog(null, "ISBN có mẫu dạng X-X-X-X, X la cac chu so, it nhat la 1 chu so");
+			txtISBN.selectAll();
+			txtISBN.requestFocus();
+			return false;
+		}
+		if(namXb.equals("")) {
+			JOptionPane.showMessageDialog(null, "nam khong duoc de trong");
+			return false;
+		}else {
+			try {
+				int x = Integer.parseInt(namXb);
+				int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
+				if(!(x>= 1990 && x<= namHienTai )) {
+					JOptionPane.showMessageDialog(null, "nam xuat ban >= 1990 va <= nam hien tai");
+					return false;
+				}
+				
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		if(soTr.equals("")) {
+			JOptionPane.showMessageDialog(null, "so trang khong duoc de trong");
+			return false;
+		} else {
+			try {
+				int x = Integer.parseInt(soTr);
+				if(x<=0) {
+					JOptionPane.showMessageDialog(null, "so trang >0");
+					return false;
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "so trang phai la chu so");
+				return false;
+			}
+			
+			
+		}
+		
+		
 		
 		return true;	
 	}

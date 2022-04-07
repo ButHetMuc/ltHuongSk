@@ -26,7 +26,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.metal.MetalComboBoxButton;
 import javax.swing.table.DefaultTableModel;
 
-import tuan2.bai1.NhanVien;
+//import tuan2.bai1.NhanVien;
 
 public class quanLiSach extends JFrame {
 	
